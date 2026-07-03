@@ -237,6 +237,10 @@ const codeMappings = {
     "VA": "vatican_city",
 }
 
+
+/*-- ================================================ --->
+<---                  Helper Functions                --->
+<--- ================================================ --*/
 /**
  * Formats the behind the scenes country name to a printable version.
  * Capitalizes the first character, and all characters following "special" characters in the country name.
@@ -262,11 +266,80 @@ function getCountryPrintName(code) {
 }
 
 function getGroupFromCountry(country) {
-    let classArray = Array.from(country.classList); 
-    classArray = classArray.filter(item => item !== "country" && item !== "visited");
-    return classArray[0];
+    return country.parentElement.id;
 }
 
+function highlightGroup(group) {
+    let groupCountries = document.getElementById(group).querySelectorAll(".country");
+    groupCountries.forEach((country, index) => {
+        country.style.fill = (country.classList.contains("visited")) ? "#3d8c40" : "#6d8396";
+    });
+}
+
+function unhighlightGroup(group) {
+    let groupCountries = document.getElementById(group).querySelectorAll(".country");
+    groupCountries.forEach((country, index) => {
+        country.style.fill = (country.classList.contains("visited")) ? "#4CAF50" : "#88a4bc";
+    });
+}
+
+function highlightCountry(country) {
+    country.style.fill = (country.classList.contains("visited")) ? "#3d8c40" : "#6d8396";
+    document.getElementById("cursor-text").style.display = "block";
+    document.getElementById("cursor-text").innerText = getCountryPrintName(country.getAttribute('id'));
+}
+
+function unhighlightCountry(country) {
+    country.style.fill = (country.classList.contains("visited")) ? "#4CAF50" : "#88a4bc";
+    document.getElementById("cursor-text").style.display = "none";
+}
+
+function hideDisplayedPhotos(countryCode) {
+    if (displayedCountry != null && document.getElementById(countryCode + "_photos") != null) {
+        document.getElementById(displayedCountry + "_photos").classList.add("hidden");
+    }
+    displayedCountry = null;
+}
+
+function displayPhotos(countryCode) {
+    if (countryCode != null && document.getElementById(countryCode + "_photos") != null) {
+        infoBox.textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
+        document.getElementById(countryCode + "_photos").classList.remove("hidden");
+    }
+    displayedCountry = countryCode;
+}
+
+function clearSecondaryInfoTimer() {
+    if (secondaryInfoTimer) {
+        clearTimeout(secondaryInfoTimer);
+        secondaryInfoBox.style.display = "none";
+    }
+}
+
+function resetSecondaryInfoTimer() {
+    clearSecondaryInfoTimer();
+    secondaryInfoBox.style.display = "block";
+    secondaryInfoTimer = setTimeout(() => {
+        secondaryInfoBox.style.display = "none";
+    }, 5000);
+}
+
+function removeHitboxPointer() {
+    document.querySelectorAll(".hitbox").forEach(hitbox => {
+        hitbox.classList.remove("pointer-cursor");
+    });
+}
+
+function addHitboxPointer() {
+    document.querySelectorAll(".hitbox").forEach(hitbox => {
+        hitbox.classList.add("pointer-cursor");
+    });
+}
+
+
+/*-- ================================================ --->
+<---                     Zoom Logic                   --->
+<--- ================================================ --*/
 function getBoundingBox(group) {
     let groupElements = document.getElementById(group);
     return groupElements.getBBox()
@@ -348,6 +421,9 @@ function zoomIntoGroup(group) {
     // Unhighlight all countries in the group once we zoom in to switch to individual country highlighting
     unhighlightGroup(group);
 
+    // Remove pointer cursor from hitboxes
+    removeHitboxPointer();
+
     // drawSvgLine(bbox.x, bbox.y, bbox.x + bbox.width, bbox.y, "red", 1);
     // drawSvgLine(bbox.x, bbox.y, bbox.x, bbox.y + bbox.height, "red", 1);
     // drawSvgLine(bbox.x + bbox.width, bbox.y, bbox.x + bbox.width, bbox.y + bbox.height, "red", 1);
@@ -359,48 +435,10 @@ function zoomIntoGroup(group) {
     // drawSvgLine((bbox.x - widthPadding), (bbox.y - heightPadding) + (bbox.height + (heightPadding * 2)), (bbox.x - widthPadding) + (bbox.width + (widthPadding * 2)), (bbox.y - heightPadding) + (bbox.height + (heightPadding * 2)), "blue", 3);
 }
 
-function highlightGroup(group) {
-    document.querySelectorAll('.' + group).forEach((groupItem, index) => {
-        groupItem.style.fill = (groupItem.classList.contains("visited")) ? "#3d8c40" : "#6d8396";;
-    });
-}
 
-function unhighlightGroup(group) {
-    document.querySelectorAll('.' + group).forEach((groupItem, index) => {
-        groupItem.style.fill = (groupItem.classList.contains("visited")) ? "#4CAF50" : "#88a4bc";;
-    });
-}
-
-function hideDisplayedPhotos(countryCode) {
-    if (displayedCountry != null && document.getElementById(countryCode + "_photos") != null) {
-        document.getElementById(displayedCountry + "_photos").classList.add("hidden");
-    }
-    displayedCountry = null;
-}
-
-function displayPhotos(countryCode) {
-    if (countryCode != null && document.getElementById(countryCode + "_photos") != null) {
-        infoBox.textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
-        document.getElementById(countryCode + "_photos").classList.remove("hidden");
-    }
-    displayedCountry = countryCode;
-}
-
-function clearSecondaryInfoTimer() {
-    if (secondaryInfoTimer) {
-        clearTimeout(secondaryInfoTimer);
-        secondaryInfoBox.style.display = "none";
-    }
-}
-
-function resetSecondaryInfoTimer() {
-    clearSecondaryInfoTimer();
-    secondaryInfoBox.style.display = "block";
-    secondaryInfoTimer = setTimeout(() => {
-        secondaryInfoBox.style.display = "none";
-    }, 5000);
-}
-
+/*-- ================================================ --->
+<---              Core Functionality Logic            --->
+<--- ================================================ --*/
 countries.forEach(country => {
     // Handle clicking a country - zoom to region and scale up
     country.addEventListener('click', () => {
@@ -427,9 +465,7 @@ countries.forEach(country => {
     country.addEventListener('mouseenter', () => {
         let group = getGroupFromCountry(country);
         if (zoomedGroup != null && group == zoomedGroup) {
-            country.style.fill = (country.classList.contains("visited")) ? "#3d8c40" : "#6d8396";
-            document.getElementById("cursor-text").style.display = "block";
-            document.getElementById("cursor-text").innerText = getCountryPrintName(country.getAttribute('id'));
+            highlightCountry(country);
         }
         else {
             highlightGroup(group);
@@ -440,8 +476,7 @@ countries.forEach(country => {
     country.addEventListener('mouseleave', () => {
         let group = getGroupFromCountry(country);
         if (zoomedGroup != null && group == zoomedGroup) {
-            country.style.fill = (country.classList.contains("visited")) ? "#4CAF50" : "#88a4bc";
-            document.getElementById("cursor-text").style.display = "none";
+            unhighlightCountry(country);
         }
         else {
             unhighlightGroup(group);
@@ -451,6 +486,7 @@ countries.forEach(country => {
 
 document.getElementById("overlay-btn").addEventListener("click", () => {
     zoomedGroup = null;
+    addHitboxPointer();
     smoothViewBoxTransition(0, 0, 700, 300, 750);
 });
 
