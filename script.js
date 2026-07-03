@@ -1,9 +1,11 @@
 const countries = document.querySelectorAll('.country');
-const infoBox = document.getElementById('info-box');
 const svg = document.getElementById("map-svg");
+const infoBox = document.getElementById("info-box");
+const secondaryInfoBox = document.getElementById("secondary-info-box");
 
 let zoomedGroup = null;
 let displayedCountry = null;
+let secondaryInfoTimer = null;
 
 const codeMappings = {
     "AF": "afghanistan",
@@ -232,6 +234,7 @@ const codeMappings = {
     "BQS": "caribbean_netherlands",
     "BQB": "caribbean_netherlands",
     "BQS": "caribbean_netherlands",
+    "VA": "vatican_city",
 }
 
 /**
@@ -341,7 +344,6 @@ function zoomIntoGroup(group) {
     let heightPadding = paddings[1];
     zoomedGroup = group;
     smoothViewBoxTransition(bbox.x - widthPadding, bbox.y - heightPadding, bbox.width + (widthPadding * 2), bbox.height + (heightPadding * 2), 750);
-    infoBox.textContent = `You clicked group: ${group}`;
 
     // Unhighlight all countries in the group once we zoom in to switch to individual country highlighting
     unhighlightGroup(group);
@@ -369,18 +371,34 @@ function unhighlightGroup(group) {
     });
 }
 
-function hideDisplayedPhotos() {
-    if (displayedCountry != null) {
-        document.getElementById(displayedCountry + "_photos").style.display = "none";
+function hideDisplayedPhotos(countryCode) {
+    if (displayedCountry != null && document.getElementById(countryCode + "_photos") != null) {
+        document.getElementById(displayedCountry + "_photos").classList.add("hidden");
     }
     displayedCountry = null;
 }
 
 function displayPhotos(countryCode) {
-    if (countryCode != null) {
-        document.getElementById(countryCode + "_photos").style.display = "block";
+    if (countryCode != null && document.getElementById(countryCode + "_photos") != null) {
+        infoBox.textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
+        document.getElementById(countryCode + "_photos").classList.remove("hidden");
     }
     displayedCountry = countryCode;
+}
+
+function clearSecondaryInfoTimer() {
+    if (secondaryInfoTimer) {
+        clearTimeout(secondaryInfoTimer);
+        secondaryInfoBox.style.display = "none";
+    }
+}
+
+function resetSecondaryInfoTimer() {
+    clearSecondaryInfoTimer();
+    secondaryInfoBox.style.display = "block";
+    secondaryInfoTimer = setTimeout(() => {
+        secondaryInfoBox.style.display = "none";
+    }, 5000);
 }
 
 countries.forEach(country => {
@@ -392,10 +410,15 @@ countries.forEach(country => {
         }
         else {
             let countryCode = country.getAttribute('id');
-            infoBox.textContent = `You clicked country: ${getCountryPrintName(countryCode)} (${countryCode})`;
             if (country.classList.contains("visited")) {
-                hideDisplayedPhotos();
+                hideDisplayedPhotos(countryCode);
                 displayPhotos(countryCode);
+                clearSecondaryInfoTimer();
+            }
+            else {
+                secondaryInfoBox.style.display = "block";
+                secondaryInfoBox.textContent = `No photos! Grant hasn't visited ${getCountryPrintName(countryCode)} (or hasn't uploaded photos)`;
+                resetSecondaryInfoTimer();
             }
         }
     });
@@ -428,7 +451,6 @@ countries.forEach(country => {
 
 document.getElementById("overlay-btn").addEventListener("click", () => {
     zoomedGroup = null;
-    hideDisplayedPhotos();
     smoothViewBoxTransition(0, 0, 700, 300, 750);
 });
 

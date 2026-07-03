@@ -15,3 +15,12 @@ Website is a world map that displays photos from a country when it is clicked on
 * [/] Color countries Grant has been to (need his list)
 * [?] Create table of countries? (does Grant want this?)
 * [-] Test on mobile
+
+# Grant feedback prompts
+* [-] Keep eye on names of countries
+* [-] Structure of country groups good?
+* [-] Like the country name on hover?
+* [-] Does he want the photos to scroll in a container, or just make a long webpage?
+* [-] How big photos?
+* [-] Does grant want islands small and accurate, or big but boxy?
+* [-] Want to distinguish Macau?

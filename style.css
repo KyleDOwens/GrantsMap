@@ -18,24 +18,45 @@ html {
 
 body {
     display: table-cell;
+    max-width: 1200px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 h1 {
-    background-color: purple;
+    text-align: center;
 }
 
 .country {
     /* fill: #88a4bc; */
-    stroke: #000;
+    fill: #88a4bc;
+    fill-opacity: "1";
+    stroke: black;
     stroke-width: 1;
+    stroke-opacity: "1";
+    stroke-linejoin: "round";
     cursor: pointer;
     transition: fill 0.3s ease;
+    opacity: "1";
 }
+.visited-stroke {
+    stroke-width: 0.25;
+}
+.visited-stroke.visited {
+    /* Remove this class?? */
+}
+
 .country:hover {
     fill: #6d8396;
 }
 .country:hover + #cursor-text {
     display: block;
+}
+
+.hitbox:hover {
+    cursor: pointer;
 }
 
 .visited {
@@ -50,14 +71,22 @@ h1 {
     border: 2px black solid;
     border-radius: 5px;
     /* background-color: rgb(228, 248, 255); */
+    user-select: none;
 }
 
 #info-box {
-    background-color: green;
-    margin-top: 20px;
+    margin-top: 10px;
+    text-align: center;
     font-family: Arial, sans-serif;
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+#secondary-info-box {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    color: gray;
 }
 
 #overlay-btn {
@@ -91,6 +120,40 @@ h1 {
     pointer-events: none;
 }
 
-.photo-box {
-    display: none;
+
+
+
+#photos-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.country-photos {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 10px;
+    padding: 1% 2%;
+    border: inset;
+}
+
+.photo-wrapper {
+    display: inline-block;
+    break-inside: avoid;
+    flex-direction: column;
+    padding: 10px; 
+    border: outset;
+    border-radius: 3px;
+}
+.photo {
+    max-width: 280px;
+    max-height: 480px;
+    border: inset;
+    padding: 5px;
+    user-select: none;
+}
+.photo-caption {
+    text-align: center;
+    font-style: italic;
 }
