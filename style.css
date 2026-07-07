@@ -29,6 +29,14 @@ h1 {
     text-align: center;
 }
 
+#map-container {
+    position: relative;
+    border: 2px black solid;
+    border-radius: 5px;
+    background-color: rgb(248, 253, 255);
+    user-select: none;
+}
+
 .country {
     /* fill: #88a4bc; */
     fill: #88a4bc;
@@ -66,15 +74,11 @@ h1 {
     fill: #3d8c40;
 }
 
-#map-container {
-    position: relative;
-    border: 2px black solid;
-    border-radius: 5px;
-    /* background-color: rgb(228, 248, 255); */
-    user-select: none;
+#info-box {
+    padding: 20px 0;
 }
 
-#info-box {
+#primary-info-box {
     margin-top: 10px;
     text-align: center;
     font-family: Arial, sans-serif;

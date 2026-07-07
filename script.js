@@ -1,6 +1,6 @@
 const countries = document.querySelectorAll('.country');
 const svg = document.getElementById("map-svg");
-const infoBox = document.getElementById("info-box");
+const infoBox = document.getElementById("primary-info-box");
 const secondaryInfoBox = document.getElementById("secondary-info-box");
 
 let zoomedGroup = null;
@@ -295,18 +295,18 @@ function unhighlightCountry(country) {
 }
 
 function hideDisplayedPhotos(countryCode) {
-    if (displayedCountry != null && document.getElementById(countryCode + "_photos") != null) {
-        document.getElementById(displayedCountry + "_photos").classList.add("hidden");
+    if (displayedCountry != null && document.getElementById(countryCode + "-photos") != null) {
+        document.getElementById(displayedCountry + "-photos").classList.add("hidden");
     }
     displayedCountry = null;
 }
 
 function displayPhotos(countryCode) {
-    if (countryCode != null && document.getElementById(countryCode + "_photos") != null) {
+    if (countryCode != null && document.getElementById(countryCode + "-photos") != null) {
         infoBox.textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
-        document.getElementById(countryCode + "_photos").classList.remove("hidden");
+        document.getElementById(countryCode + "-photos").classList.remove("hidden");
+        displayedCountry = countryCode;
     }
-    displayedCountry = countryCode;
 }
 
 function clearSecondaryInfoTimer() {
@@ -448,14 +448,19 @@ countries.forEach(country => {
         }
         else {
             let countryCode = country.getAttribute('id');
-            if (country.classList.contains("visited")) {
+            if (country.classList.contains("visited") && document.getElementById(countryCode + "-photos") != null) {
                 hideDisplayedPhotos(countryCode);
                 displayPhotos(countryCode);
                 clearSecondaryInfoTimer();
             }
+            else if (country.classList.contains("visited")) {
+                secondaryInfoBox.style.display = "block";
+                secondaryInfoBox.textContent = `Grant has visited ${getCountryPrintName(countryCode)} but hasn't uploaded photos :(`;
+                resetSecondaryInfoTimer();
+            }
             else {
                 secondaryInfoBox.style.display = "block";
-                secondaryInfoBox.textContent = `No photos! Grant hasn't visited ${getCountryPrintName(countryCode)} (or hasn't uploaded photos)`;
+                secondaryInfoBox.textContent = `No photos! Grant hasn't visited ${getCountryPrintName(countryCode)}`;
                 resetSecondaryInfoTimer();
             }
         }
