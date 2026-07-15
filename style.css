@@ -52,9 +52,6 @@ h1 {
 .thin-stroke {
     stroke-width: 0.25;
 }
-.thin-stroke.visited {
-    /* Remove this class?? */
-}
 
 .country:hover {
     fill: #6d8396;
@@ -149,9 +146,10 @@ h1 {
     padding: 10px; 
     border: outset;
     border-radius: 3px;
+    max-width: 21%;
 }
 .photo {
-    max-width: 280px;
+    max-width: 224px;
     max-height: 480px;
     border: inset;
     padding: 5px;

@@ -17,15 +17,38 @@ Website for Grant of a world map that displays his photos from a country when it
 * [-] Test on mobile
 
 # Grant feedback prompts
-* [-] Keep eye on names of countries
-* [-] Structure of country groups good?
-* [-] Like the country name on hover?
-* [-] Does he want the photos to scroll in a container, or just make a long webpage?
-* [-] How big photos?
-* [-] Does grant want islands small and accurate, or big but boxy?
-* [-] Want to distinguish Macau?
-* [-] Differentiate visited countries with no photos, and visited countries with photos?
-* [-] Separate hawaii?
-* [-] What islands as a box? Caribbean? Bermuda as a box?
-* [-] Small islands have green outline?
+* [+] How big photos?
+    * 3-4-5 in a row
+* [+] Does grant want islands small and accurate, or big but boxy?
+    * keep unless he tells me otherwise
+* [+] Differentiate visited countries with no photos, and visited countries with photos?
+    * no
+* [+] Small islands have green outline?
+    * no
+
 * [-] List countries in a table again?
+    * yes
+    * switch between map and table view
+
+* [-] Leave space for photo captions
+    * yes
+
+* [-] Add homepage with big button that directs to the map page
+    * plus small blurb explaining what it is
+    * plus small rotating pictures
+    * maybe look like postcard?
+
+* STYLE: vintage travel posters
+* STYLE: middle eastern tiles
+
+* [-] Add city subheader to separate photos
+    * add box to skip to certain cities
+
+* [-] Put flag for country somewhere when you click on it
+
+* [-] STRETCH GOAL - recreate flighty?
+
+
+* Website name?
+
+* [-] Why script doesnt work for grant

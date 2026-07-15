@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="postcard.css">
+    <title>Gallivanting Grant</title>
+</head>
+<body>
+    <video autoplay muted loop id="video-container">
+    <!-- https://archive.org/details/79214-airplane-footage-mos -->
+        <source src="./images/airplanes_out_cropped.mp4" type="video/mp4">
+    </video>
+
+    <div id="postcard-container">
+
+        <div id="postcard" onclick="window.location.href='index.html';">
+            <div id="greeting">Greetings from...</div>
+            <div id="lettering">
+                <span class="bubble" data-text="G" style="--i:1">G</span>
+                <span class="bubble" data-text="R" style="--i:2">R</span>
+                <span class="bubble" data-text="A" style="--i:3">A</span>
+                <span class="bubble" data-text="N" style="--i:4">N</span>
+                <span class="bubble" data-text="T" style="--i:5">T</span>
+            </div>
+
+            <div id="subtitle">Click to view travel photos!</div>
+            <!-- <div id="footer">A travel website</div> -->
+            <img src="./images/natural-paper.png" alt="Overlay" class="overlay-image">
+        </div>
+
+    </div>
+
+    <script>
+    function goToMap() {
+        document.getElementById(i).style.visibility='visible';
+        }
+    </script>
+
+</body>
+</html>

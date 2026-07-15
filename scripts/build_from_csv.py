@@ -4,8 +4,9 @@ import csv
 from bs4 import BeautifulSoup, Comment
 from bs4.formatter import HTMLFormatter
 
+
 # Get command line arguments
-if (os.getcwd().split("/")[-1] != "grants_map"):
+if (os.getcwd().split("/")[-1].lower() != "grants_map" and os.getcwd().split("/")[-1].lower() != "grantsmap"):
         exit("ERROR: This script must be run from the project root directory")
 
 if len(sys.argv) > 1:
@@ -31,27 +32,30 @@ for row in csv_data[1:]:
     (country_code, country_name, group, visited) = row
     visited = visited.strip().lower() == "true"
 
-    # Get country element
     path_element = soup.find(id=country_code)
     if path_element == None:
-        print(f"ERROR: Country {country_name} ({country_code}) not found in HTML")
+        print(f"WARNING: Country {country_name} ({country_code}) not found in HTML")
         continue
+
+
 
     # Set visited class in path if needed
     if visited and "visited" not in path_element["class"]:
-        print(f"Marking {country_name} ({country_code}) as visited")
+        print(f"INFO: Marking {country_name} ({country_code}) as visited")
         path_string = f"<path id=\"{country_code}\" class=\"country visited"
         html_string = html_string.replace(f"<path id=\"{country_code}\" class=\"country", path_string)
 
     elif not visited and "visited" in path_element["class"]:
-        print(f"Removing visited mark from {country_name} ({country_code})")
+        print(f"INFO: Removing visited mark from {country_name} ({country_code})")
         path_string = f"<path id=\"{country_code}\" class=\"country"
         html_string = html_string.replace(f"<path id=\"{country_code}\" class=\"country visited", path_string)
     
+
+
     # Add country-photos element if needed
     country_photos = soup.find(id=f"{country_code}-photos")
     if visited and country_photos == None:
-        print(f"Adding new photo group for country {country_name} ({country_code})")
+        print(f"INFO: Adding new photo container for country {country_name} ({country_code})")
 
         photos_string = f"""<!-- {country_name.capitalize()} -->
         <div id="{country_code}-photos" class="country-photos hidden">
@@ -62,21 +66,40 @@ for row in csv_data[1:]:
         html_string = html_string.replace("<!-- COUNTRY_PHOTOS_REPLACEME -->", photos_string)
 
 
-    # Shift country path to group if needed
+
+    # Shift country path to new group if needed
     path_element = soup.find(id=country_code)
     html_group = path_element.parent["id"]
     if html_group != group:
-        print(f"Moving country {country_name} ({country_code}) from group {html_group} to {group}")
+        print(f"INFO: Moving country {country_name} ({country_code}) from group {html_group} to {group}")
         
         start = html_string.find(f"<path id=\"{country_code}\"")
         end = html_string.find("/>", start) + 2
         path_string = html_string[start:end]
 
-        group_string = f"<g id=\"{group}\">" + "\n\t\t\t\t" + path_string
+        old_group_string = f"<g id=\"{group}\">"
+        new_group_string = f"<g id=\"{group}\">" + "\n\t\t\t\t" + path_string
+
+        # If creating a new group
+        if old_group_string not in html_string:
+            print(f"INFO: Creating a new group for {group}")
+            old_group_string = f"</g>\n\t\t</svg>"
+            new_group_string = f"</g>\n\t\t\t<g id=\"{group}\">" + "\n\t\t\t\t" + path_string + "\n\t\t\t</g>\n\t\t</svg>"
 
         html_string = html_string.replace(path_string, "")
-        html_string = html_string.replace(f"<g id=\"{group}\">", group_string)
-        
+        html_string = html_string.replace(old_group_string.expandtabs(4), new_group_string.expandtabs(4))
+    
+
+
+    # Add country to table if visited
+    # TODO: Make sure it is always inserted in alphabetical order (or re-add entire table each time)
+    in_table = soup.find(id="row"+country_code)
+    if visited and not in_table:
+        print(f"INFO: Adding new row in table for country {country_name} ({country_code})")
+        row_string =f"<tr><td>{country_name.replace('_', ' ').title()}</td></tr>\n\t\t\t<!-- REPLACEME_TABLE_ENTRY -->"
+        html_string = html_string.replace("<!-- REPLACEME_TABLE_ENTRY -->", row_string.expandtabs(4))
+
+
 
 # Write changes to HTML
 with open("index.html", "w", encoding="utf-8") as file:

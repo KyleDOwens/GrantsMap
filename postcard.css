@@ -1,0 +1,158 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    background-color: black;
+}
+
+#video-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-width: 100%;
+    min-height: 100%;
+
+    opacity: 66%;
+}
+
+#postcard-container {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 99;
+  
+    pointer-events: none; 
+}
+
+#postcard {
+    width: 1000px;
+    height: 635px;
+    padding: 30px;
+
+    border: 18px solid #f6efe2;
+    border-radius: 15px;
+    box-shadow: 7px 7px 20px 0px rgba(0, 0, 0, 0.3);
+    background-color: whitesmoke;
+    filter: drop-shadow(0 0 0 white);
+
+    /* mix-blend-mode:multiply; */
+    /* opacity:.18; */
+
+    cursor: pointer;
+    user-select: none;
+
+    background-image: url("./images/vintage_map2.jpg");
+    background-size: cover;
+    background-position: center;
+
+    /* transform: rotate(0deg) scale(1);
+    transition: transform 0.06s ease-in-out;  */
+
+    animation: slideFromRight 1.5s infinite steps(1);
+    transition: transform 0.06s ease-in-out;
+    --scale: 1;
+}
+@keyframes slideFromRight {
+    0%, 100% {
+        transform: scale(var(--scale, 1)) rotate(-1deg);
+    }
+    50% {
+        transform: scale(var(--scale, 1)) rotate(1deg);
+    }
+}
+
+#postcard:hover {
+    /* transform: rotate(1deg) scale(1.01); */
+    --scale: 1.01;
+}
+
+#greeting {
+    font-size: 50px;
+    font-family: "Lucida Handwriting";
+    font-weight: bold;
+    transform: rotate(-7deg);
+    color: #27355c;
+}
+
+#lettering {
+    display: flex;
+    justify-content: center;
+    transform: rotate(-2deg);
+}
+
+.bubble {
+    display: inline-block;
+    font-size: 220px;
+    font-family: "Cooper Black";
+    font-weight: bold;
+    color: transparent;
+    -webkit-text-stroke: 8px black;
+
+    background-image: url("./images/uzbek_postcard1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-clip: text;
+    -webkit-background-clip: text;
+    
+    /* transform: rotate(-7deg); */
+    /* text-shadow: 8px 8px 0 orange; */
+}
+.bubble:nth-child(1){
+    background-position:0%;
+    background-image: url("./images/bubble1.jpg");
+}
+.bubble:nth-child(2){
+    background-position:12%;
+    background-image: url("./images/bubble2.jpg");
+}
+.bubble:nth-child(3){
+    background-position:25%;
+    background-image: url("./images/bubble3.jpg");
+}
+.bubble:nth-child(4){
+    background-position:0%;
+    background-image: url("./images/bubble4.jpg");
+}
+.bubble:nth-child(5){
+    background-position:12%;
+    background-image: url("./images/bubble5.jpg");
+}
+
+.bubble::before {
+    content: attr(data-text);
+    position: absolute;
+    color: #c76824;
+    transform: translate(12px,16px);
+    z-index: -1;
+}
+
+#subtitle {
+    margin-top: 120px;
+    font-size: 36px;
+    font-family: "Lucida Handwriting";
+    font-weight: bold;
+    text-align: right;
+    color: #27355c;
+    transform: rotate(1deg);
+}
+
+#footer {
+    font-size: 12px;
+    font-family: "Lucida Handwriting";
+    font-weight: bold;
+    color: #27355c;
+    text-align: right;
+    transform: rotate(-1deg);
+}
+
