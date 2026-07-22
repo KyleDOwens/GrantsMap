@@ -79,6 +79,10 @@ thead th {
   z-index: 1;
 }
 
+.country-entry {
+    cursor: pointer;
+}
+
 
 /*-- ================================================ --->
 <---                    MAP VIEW                      --->
@@ -195,6 +199,7 @@ thead th {
     width: 133px;
     height: 100px;
     margin: 0 auto;
+    border: outset;
 }
 
 #cities-table {

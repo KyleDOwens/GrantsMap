@@ -5,6 +5,13 @@ from bs4 import BeautifulSoup, Comment
 from bs4.formatter import HTMLFormatter
 
 
+# TODO: just redo entire build file at some point, is very messy due to so many big design changes
+# TODO: maybe add scripts like "add_photo <filename> <country> <city> <caption>", or "edit_caption <old_caption> <new_caption>"
+#       or label each photo with a number to do "add_photo <filename> <country> <insert_before_number>" 
+
+# This file will update the website based on the info countries.csv
+# This is intended to do EVERYTHING, that way Grant doesn't have to every look at any code, and can just make his changes in the CSV
+
 # Get command line arguments
 if (os.getcwd().split("/")[-1].lower() != "grants_map" and os.getcwd().split("/")[-1].lower() != "grantsmap"):
         exit("ERROR: This script must be run from the project root directory")
@@ -28,8 +35,10 @@ with open("index.html", "r", encoding="utf-8") as file:
 soup = BeautifulSoup(html_string, "html.parser")
 
 # Loop through CSV and make changes
+table_html = "<tbody>\n\t\t\t\t\t"
+
 for row in csv_data[1:]:
-    (country_code, country_name, group, visited) = row
+    (country_code, country_name, group, visited, year_visited) = row
     visited = visited.strip().lower() == "true"
 
     path_element = soup.find(id=country_code)
@@ -91,15 +100,17 @@ for row in csv_data[1:]:
     
 
 
-    # Add country to table if visited
-    # TODO: Make sure it is always inserted in alphabetical order (or re-add entire table each time)
-    in_table = soup.find(id="row"+country_code)
-    if visited and not in_table:
-        print(f"INFO: Adding new row in table for country {country_name} ({country_code})")
-        row_string =f"<tr><td>{country_name.replace('_', ' ').title()}</td></tr>\n\t\t\t<!-- REPLACEME_TABLE_ENTRY -->"
-        html_string = html_string.replace("<!-- REPLACEME_TABLE_ENTRY -->", row_string.expandtabs(4))
+    # Update table
+    if visited:
+        country_entry = f"<tr><td><span class=\"country-entry\" data-code=\"{country_code}\">{country_name.replace('_', ' ').title()}</span></td><td>{year_visited}</td></tr>\n\t\t\t\t\t"
+        table_html += country_entry.expandtabs(4)
 
+    
 
+# Replace country table
+start = html_string.find("<tbody>", html_string.index("table id=\"countries-table\""))
+end = html_string.find("</tbody>", start)
+html_string = html_string[:start] + table_html[:-4] + html_string[end:]
 
 # Write changes to HTML
 with open("index.html", "w", encoding="utf-8") as file:

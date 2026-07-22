@@ -453,32 +453,38 @@ function zoomIntoGroup(group) {
 /*-- ================================================ --->
 <---              Core Functionality Logic            --->
 <--- ================================================ --*/
+function handleClickedCountry(country) {
+    let group = getGroupFromCountry(country);
+    if (zoomedGroup == null || group != zoomedGroup) {
+        zoomIntoGroup(group);
+        return group;
+    }
+    else {
+        let countryCode = country.getAttribute('id');
+        if (country.classList.contains("visited") && document.getElementById(countryCode + "-photos") != null) {
+            hideDisplayedPhotos(countryCode);
+            setFlag(countryCode);
+            displayPhotos(countryCode);
+            clearSecondaryInfoTimer();
+        }
+        else if (country.classList.contains("visited")) {
+            secondaryInfoBox.style.display = "block";
+            secondaryInfoBox.textContent = `Grant has visited ${getCountryPrintName(countryCode)} but hasn't uploaded photos :(`;
+            resetSecondaryInfoTimer();
+        }
+        else {
+            secondaryInfoBox.style.display = "block";
+            secondaryInfoBox.textContent = `No photos! Grant hasn't visited ${getCountryPrintName(countryCode)}`;
+            resetSecondaryInfoTimer();
+        }
+        return countryCode;
+    }
+}
+
 countries.forEach(country => {
     // Handle clicking a country - zoom to region and scale up
     country.addEventListener('click', () => {
-        let group = getGroupFromCountry(country);
-        if (zoomedGroup == null || group != zoomedGroup) {
-            zoomIntoGroup(group);
-        }
-        else {
-            let countryCode = country.getAttribute('id');
-            if (country.classList.contains("visited") && document.getElementById(countryCode + "-photos") != null) {
-                hideDisplayedPhotos(countryCode);
-                setFlag(countryCode);
-                displayPhotos(countryCode);
-                clearSecondaryInfoTimer();
-            }
-            else if (country.classList.contains("visited")) {
-                secondaryInfoBox.style.display = "block";
-                secondaryInfoBox.textContent = `Grant has visited ${getCountryPrintName(countryCode)} but hasn't uploaded photos :(`;
-                resetSecondaryInfoTimer();
-            }
-            else {
-                secondaryInfoBox.style.display = "block";
-                secondaryInfoBox.textContent = `No photos! Grant hasn't visited ${getCountryPrintName(countryCode)}`;
-                resetSecondaryInfoTimer();
-            }
-        }
+        handleClickedCountry(country);
     });
 
     // Highlight group on hover
@@ -503,6 +509,18 @@ countries.forEach(country => {
         }
     });
 });
+
+/**
+ * Handles logic for clicking on an entry in the table.
+ * Will zoom into relevant group AND select the country.
+ */
+document.querySelectorAll('.country-entry').forEach(countryEntry => {
+    countryEntry.addEventListener("click", () => {
+        if (handleClickedCountry(document.getElementById(countryEntry.dataset.code)) == zoomedGroup) {
+            handleClickedCountry(document.getElementById(countryEntry.dataset.code));
+        }
+    })
+})
 
 document.getElementById("overlay-btn").addEventListener("click", () => {
     zoomedGroup = null;
