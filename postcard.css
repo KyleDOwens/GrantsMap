@@ -52,7 +52,7 @@ html, body {
     cursor: pointer;
     user-select: none;
 
-    background-image: url("./images/vintage_map2.jpg");
+    background-image: url("./images/postcard_map.jpg");
     background-size: cover;
     background-position: center;
 
@@ -99,9 +99,7 @@ html, body {
     color: transparent;
     -webkit-text-stroke: 8px black;
 
-    background-image: url("./images/uzbek_postcard1.jpg");
     background-size: cover;
-    background-position: center;
     background-clip: text;
     -webkit-background-clip: text;
     
