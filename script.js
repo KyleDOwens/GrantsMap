@@ -7,6 +7,12 @@ let zoomedGroup = null;
 let displayedCountry = null;
 let secondaryInfoTimer = null;
 
+let visitedColor = "#3FAA40";
+let visitedHoverColor = "#3d8c40";
+let unvisitedColor = "#A63E3F";
+let unvisitedHoverColor = "#91383a";
+
+
 const codeMappings = {
     "AF": "afghanistan",
     "AO": "angola",
@@ -250,7 +256,7 @@ const codeMappings = {
 function getCountryPrintName(code) {
     let name = codeMappings[code];
     console.log(code);
-    printName = "";
+    let printName = "";
     printName += name[0].toUpperCase();
     name = name.replaceAll("_", " ");
     for (let i = 1; i < name.length; i++) {
@@ -272,25 +278,25 @@ function getGroupFromCountry(country) {
 function highlightGroup(group) {
     let groupCountries = document.getElementById(group).querySelectorAll(".country");
     groupCountries.forEach((country, index) => {
-        country.style.fill = (country.classList.contains("visited")) ? "#3d8c40" : "#6d8396";
+        country.style.fill = (country.classList.contains("visited")) ? visitedHoverColor : unvisitedHoverColor;
     });
 }
 
 function unhighlightGroup(group) {
     let groupCountries = document.getElementById(group).querySelectorAll(".country");
     groupCountries.forEach((country, index) => {
-        country.style.fill = (country.classList.contains("visited")) ? "#4CAF50" : "#88a4bc";
+        country.style.fill = (country.classList.contains("visited")) ? visitedColor : unvisitedColor;
     });
 }
 
 function highlightCountry(country) {
-    country.style.fill = (country.classList.contains("visited")) ? "#3d8c40" : "#6d8396";
+    country.style.fill = (country.classList.contains("visited")) ? visitedHoverColor : unvisitedHoverColor;
     document.getElementById("cursor-text").style.display = "block";
     document.getElementById("cursor-text").innerText = getCountryPrintName(country.getAttribute('id'));
 }
 
 function unhighlightCountry(country) {
-    country.style.fill = (country.classList.contains("visited")) ? "#4CAF50" : "#88a4bc";
+    country.style.fill = (country.classList.contains("visited")) ? visitedColor : unvisitedColor;
     document.getElementById("cursor-text").style.display = "none";
 }
 
@@ -334,6 +340,12 @@ function addHitboxPointer() {
     document.querySelectorAll(".hitbox").forEach(hitbox => {
         hitbox.classList.add("pointer-cursor");
     });
+}
+
+function setFlag(countryCode) {
+    let flagDisplay = document.getElementById("flag-container");
+    flagDisplay.style.display = "block";
+    flagDisplay.className = `fi fi-${countryCode.toLowerCase()}`;
 }
 
 
@@ -394,6 +406,8 @@ function getZoomPaddings(totalWidth, totalHeight, zoomWidth, zoomHeight) {
     let baseHeightPadding = baseWidthPadding*(totalHeight/totalWidth);
 
     // If width bound
+    let widthPadding = 0;
+    let heightPadding = 0;
     if (widthScale >= heightScale) {
         scale = widthScale;
         widthPadding = baseWidthPadding + ((totalWidth * scale - zoomWidth) / 2);
@@ -450,6 +464,7 @@ countries.forEach(country => {
             let countryCode = country.getAttribute('id');
             if (country.classList.contains("visited") && document.getElementById(countryCode + "-photos") != null) {
                 hideDisplayedPhotos(countryCode);
+                setFlag(countryCode);
                 displayPhotos(countryCode);
                 clearSecondaryInfoTimer();
             }

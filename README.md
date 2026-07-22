@@ -49,6 +49,17 @@ Website for Grant of a world map that displays his photos from a country when it
 * [-] STRETCH GOAL - recreate flighty?
 
 
-* Website name?
-
 * [-] Why script doesnt work for grant
+    * think this was just because i didnt push my changes, oopsie
+
+
+ --------------------------------------------------------------
+
+[-] In country table, add the order visited?
+[-] In country table, color code based on # of days? (green, yellow, red)
+
+
+TODO:
+* [-] Add paneling around each letter in the table to mimic departure display
+* [-] Add flag to country info when clicked
+* [-] Make each photo look like a polaroid?
