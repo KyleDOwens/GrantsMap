@@ -3,11 +3,9 @@ import os
 import csv
 from bs4 import BeautifulSoup, Comment
 from bs4.formatter import HTMLFormatter
-
+from pathlib import Path
 
 # TODO: just redo entire build file at some point, is very messy due to so many big design changes
-# TODO: maybe add scripts like "add_photo <filename> <country> <city> <caption>", or "edit_caption <old_caption> <new_caption>"
-#       or label each photo with a number to do "add_photo <filename> <country> <insert_before_number>" 
 
 # This file will update the website based on the info countries.csv
 # This is intended to do EVERYTHING, that way Grant doesn't have to every look at any code, and can just make his changes in the CSV
@@ -27,16 +25,19 @@ with open("countries.csv", mode="r", newline="", encoding="utf-8") as file:
     reader = csv.reader(file)
     csv_data = list(reader)
 
-# Parse through HTML file
+# Read in HTML file as string
 html_string = None
 with open("index.html", "r", encoding="utf-8") as file:
     html_string = file.read()
 
 soup = BeautifulSoup(html_string, "html.parser")
 
-# Loop through CSV and make changes
-table_html = "<tbody>\n\t\t\t\t\t"
 
+
+# /*-- ================================================ --->
+# <---                PULL CSV CHANGES                  --->
+# <--- ================================================ --*/
+country_table_html = "<tbody>\n\t\t\t\t\t"
 for row in csv_data[1:]:
     (country_code, country_name, group, visited, year_visited) = row
     visited = visited.strip().lower() == "true"
@@ -45,8 +46,6 @@ for row in csv_data[1:]:
     if path_element == None:
         print(f"WARNING: Country {country_name} ({country_code}) not found in HTML")
         continue
-
-
 
     # Set visited class in path if needed
     if visited and "visited" not in path_element["class"]:
@@ -58,8 +57,6 @@ for row in csv_data[1:]:
         print(f"INFO: Removing visited mark from {country_name} ({country_code})")
         path_string = f"<path id=\"{country_code}\" class=\"country"
         html_string = html_string.replace(f"<path id=\"{country_code}\" class=\"country visited", path_string)
-    
-
 
     # Add country-photos element if needed
     country_photos = soup.find(id=f"{country_code}-photos")
@@ -73,8 +70,6 @@ for row in csv_data[1:]:
         <!-- COUNTRY_PHOTOS_REPLACEME -->"""
 
         html_string = html_string.replace("<!-- COUNTRY_PHOTOS_REPLACEME -->", photos_string)
-
-
 
     # Shift country path to new group if needed
     path_element = soup.find(id=country_code)
@@ -98,19 +93,54 @@ for row in csv_data[1:]:
         html_string = html_string.replace(path_string, "")
         html_string = html_string.replace(old_group_string.expandtabs(4), new_group_string.expandtabs(4))
     
-
-
     # Update table
     if visited:
         country_entry = f"<tr><td><span class=\"country-entry\" data-code=\"{country_code}\">{country_name.replace('_', ' ').title()}</span></td><td>{year_visited}</td></tr>\n\t\t\t\t\t"
-        table_html += country_entry.expandtabs(4)
+        country_table_html += country_entry.expandtabs(4)
 
+
+
+# /*-- ================================================ --->
+# <---               PULL IMAGE CHANGES                 --->
+# <--- ================================================ --*/
+cities_table_html = "<tbody>\n\t\t\t\t\t\t"
+for filepath in Path("./images").glob("*"):
+    if not filepath.is_file():
+        continue
     
+    valid_extensions = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}
+    if not filepath.suffix.lower() in valid_extensions:
+        print(f"File {filepath} in images folder is not an image file! Must have extension {valid_extensions}")
+    
+    # Get info about image
+    try:
+        metadata = filepath.name.split("_")
+        country_code = metadata[0]
+        city_name = metadata[1].replace("-", " ")
+        order = int(metadata[2])
+    except Exception as e:
+        print(f"ERROR: filename \"{filepath.name}\" does not follow the format <CountryCode>_<CityName>_<OrderNumber>_<Description>.jpg! Make sure to use hyphens (-) instead of spaces in the city name.\n\tExample filenames: \"us_boston_1_example.jpg\" or \"us_san-antonio_4_riverwalk.jpg\")")
+        continue
 
+    # Add the city to the table
+    city_entry = f"<tr class=\"city-entry {country_code}-city\"><td>{city_name.title()}</td></tr>\n\t\t\t\t\t\t"
+    if city_entry.strip() not in cities_table_html:
+        cities_table_html += city_entry.expandtabs(4)
+
+
+
+# /*-- ================================================ --->
+# <---                  WRITE CHANGES                   --->
+# <--- ================================================ --*/
 # Replace country table
 start = html_string.find("<tbody>", html_string.index("table id=\"countries-table\""))
 end = html_string.find("</tbody>", start)
-html_string = html_string[:start] + table_html[:-4] + html_string[end:]
+html_string = html_string[:start] + country_table_html[:-4] + html_string[end:]
+
+# Replace cities table
+start = html_string.find("<tbody>", html_string.index("table id=\"cities-table\""))
+end = html_string.find("</tbody>", start)
+html_string = html_string[:start] + cities_table_html[:-4] + html_string[end:]
 
 # Write changes to HTML
 with open("index.html", "w", encoding="utf-8") as file:

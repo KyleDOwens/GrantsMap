@@ -255,7 +255,6 @@ const codeMappings = {
  */
 function getCountryPrintName(code) {
     let name = codeMappings[code];
-    console.log(code);
     let printName = "";
     printName += name[0].toUpperCase();
     name = name.replaceAll("_", " ");
@@ -346,6 +345,12 @@ function setFlag(countryCode) {
     let flagDisplay = document.getElementById("flag-container");
     flagDisplay.style.display = "block";
     flagDisplay.className = `fi fi-${countryCode.toLowerCase()}`;
+}
+
+function hideAllCities() {
+    document.querySelectorAll(".city-entry").forEach(cityEntry => {
+        cityEntry.style.display = "none";
+    });
 }
 
 
@@ -453,6 +458,10 @@ function zoomIntoGroup(group) {
 /*-- ================================================ --->
 <---              Core Functionality Logic            --->
 <--- ================================================ --*/
+document.addEventListener("DOMContentLoaded", () => {
+    hideAllCities();
+});
+
 function handleClickedCountry(country) {
     let group = getGroupFromCountry(country);
     if (zoomedGroup == null || group != zoomedGroup) {
@@ -464,6 +473,7 @@ function handleClickedCountry(country) {
         if (country.classList.contains("visited") && document.getElementById(countryCode + "-photos") != null) {
             hideDisplayedPhotos(countryCode);
             setFlag(countryCode);
+            displayCountryCities(countryCode);
             displayPhotos(countryCode);
             clearSecondaryInfoTimer();
         }
@@ -479,6 +489,13 @@ function handleClickedCountry(country) {
         }
         return countryCode;
     }
+}
+
+function displayCountryCities(countryCode) {
+    hideAllCities();
+    document.querySelectorAll(`.${countryCode.toLowerCase()}-city`).forEach(cityEntry => {
+        cityEntry.style.display = "table-row";
+    });
 }
 
 countries.forEach(country => {
@@ -514,13 +531,13 @@ countries.forEach(country => {
  * Handles logic for clicking on an entry in the table.
  * Will zoom into relevant group AND select the country.
  */
-document.querySelectorAll('.country-entry').forEach(countryEntry => {
+document.querySelectorAll(".country-entry").forEach(countryEntry => {
     countryEntry.addEventListener("click", () => {
         if (handleClickedCountry(document.getElementById(countryEntry.dataset.code)) == zoomedGroup) {
             handleClickedCountry(document.getElementById(countryEntry.dataset.code));
         }
     })
-})
+});
 
 document.getElementById("overlay-btn").addEventListener("click", () => {
     zoomedGroup = null;
@@ -528,7 +545,7 @@ document.getElementById("overlay-btn").addEventListener("click", () => {
     smoothViewBoxTransition(0, 0, 700, 300, 750);
 });
 
-window.addEventListener('mousemove', (e) => {
+window.addEventListener("mousemove", (e) => {
     let cursorText = document.getElementById("cursor-text");
     cursorText.style.left = e.clientX + 16 + "px";
     cursorText.style.top = e.clientY + 16 + "px";

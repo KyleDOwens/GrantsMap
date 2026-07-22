@@ -7,59 +7,33 @@ Website for Grant of a world map that displays his photos from a country when it
 * https://simplemaps.com/
 
 
-# TODO:
-* [+] When you click on a country, have it zoom into the region
-    * [+] Add a back button to go to the entire map
-* [+] Highlight entire group when hovering when not zoomed in
-* [+] Highlight individual country when hovering when zoomed in
-* [+] Color countries Grant has been to (need his list)
-* [?] Create table of countries? (does Grant want this?)
-* [-] Test on mobile
-
-# Grant feedback prompts
-* [+] How big photos?
-    * 3-4-5 in a row
-* [+] Does grant want islands small and accurate, or big but boxy?
-    * keep unless he tells me otherwise
-* [+] Differentiate visited countries with no photos, and visited countries with photos?
-    * no
-* [+] Small islands have green outline?
-    * no
-
-* [-] List countries in a table again?
-    * yes
-    * switch between map and table view
-
-* [-] Leave space for photo captions
-    * yes
-
-* [-] Add homepage with big button that directs to the map page
-    * plus small blurb explaining what it is
-    * plus small rotating pictures
-    * maybe look like postcard?
-
 * STYLE: vintage travel posters
 * STYLE: middle eastern tiles
-
-* [-] Add city subheader to separate photos
-    * add box to skip to certain cities
-
-* [-] Put flag for country somewhere when you click on it
 
 * [-] STRETCH GOAL - recreate flighty?
 
 
-* [-] Why script doesnt work for grant
-    * think this was just because i didnt push my changes, oopsie
-
 
  --------------------------------------------------------------
-
+QUESTIONS
 [-] In country table, add the order visited?
 [-] In country table, color code based on # of days? (green, yellow, red)
+[-] Does grant want a "default country" to display pictures of?
 
+DONE:
+* [+] Why script doesnt work for grant (think this was just because i didnt push my changes, oopsie)
+* [+] Added postcard page (although the styles don't match at all anymore, may need to redo)
+* [+] Add flag to country info when clicked
+* [+] Add box to skip to certain cities
 
 TODO:
 * [-] Add paneling around each letter in the table to mimic departure display
-* [-] Add flag to country info when clicked
 * [-] Make each photo look like a polaroid?
+
+* [-] Build script to put city subheader to separate photos
+* [-] Build script to put photos in correct order (should be automatic since in alpha order)
+* [-] Make clicking on city entries go to city subheader
+* [-] Hide city table until a country is clicked on
+
+* [-] Add script to allow grant to edit the caption for a photo
+    * Something like `edit_caption <country> <city> <photoNumber | photoName> <caption>`

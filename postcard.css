@@ -52,7 +52,7 @@ html, body {
     cursor: pointer;
     user-select: none;
 
-    background-image: url("./images/postcard_map.jpg");
+    background-image: url("./images/styling/postcard_map.jpg");
     background-size: cover;
     background-position: center;
 
@@ -108,23 +108,23 @@ html, body {
 }
 .bubble:nth-child(1){
     background-position:0%;
-    background-image: url("./images/bubble1.jpg");
+    background-image: url("./images/styling/bubble1.jpg");
 }
 .bubble:nth-child(2){
     background-position:12%;
-    background-image: url("./images/bubble2.jpg");
+    background-image: url("./images/styling/bubble2.jpg");
 }
 .bubble:nth-child(3){
     background-position:25%;
-    background-image: url("./images/bubble3.jpg");
+    background-image: url("./images/styling/bubble3.jpg");
 }
 .bubble:nth-child(4){
     background-position:0%;
-    background-image: url("./images/bubble4.jpg");
+    background-image: url("./images/styling/bubble4.jpg");
 }
 .bubble:nth-child(5){
     background-position:12%;
-    background-image: url("./images/bubble5.jpg");
+    background-image: url("./images/styling/bubble5.jpg");
 }
 
 .bubble::before {
