@@ -88,8 +88,8 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [-] Does grant also want to display "fun facts" when a country is clicked on? Like the capital, population, language, etc.
 
 ### DONE:
-* [+] Why script doesnt work for grant (think this was just because i didnt push my changes, oopsie)
-* [+] Added postcard page (although the styles don't match at all anymore, may need to redo)
+* [+] Why script doesnt work for grant (i didnt push my changes, oopsie)
+* [+] Added postcard page (styles don't match at all anymore, may need to redo)
 * [+] Add flag to country info when clicked
 * [+] Add box to skip to certain cities
 * [+] Build script to automatically add HTML for all photos
@@ -97,12 +97,16 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [+] Build script to put photos in correct order (should be automatic since in alpha order)
 * [+] Make clicking on city entries go to city subheader
 * [+] Hide city table until a country is clicked on
+* [+] Add script to allow grant to edit the caption for a photo
+* [+] Add script to easily change image orders
+* [+] Add cache to remember captions across build process (ignoring the orderNumber)
 
 ### TODO:
 #### Design
 * [-] Add paneling around each letter in the table to mimic departure display
 * [-] Make each photo look like a polaroid?
 * [-] Info box look like passport page?
+* [-] Steal kyle's world scrollbars
 
 #### Website Code
 * [-] Stop SVG canvas from changing size when zooming
@@ -110,8 +114,4 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [-] Make display on mobile (single column for everything)
 
 #### Scripts
-* [+] Add script to allow grant to edit the caption for a photo
-    * Something like `edit_caption <country> <city> <photoNumber | photoName> <caption>`
-* [+] Add script to easily change image orders by changing the OrderNumber in all filenames
-    * Something like `change_order <currentFilename> <newFilename>`
-* [-] Add cache to remember captions across build process (ignoring the orderNumber)
+* [-] Write documentation for Grant for the photo scripts

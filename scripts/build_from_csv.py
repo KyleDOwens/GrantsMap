@@ -90,10 +90,35 @@ for row in csv_data[1:]:
 # /*-- ================================================ --->
 # <---               PULL IMAGE CHANGES                 --->
 # <--- ================================================ --*/
+# Fill the caption cache
+caption_cache = {}
+for photo_elem in html_string.split("div class=\"photo-wrapper")[1:]:
+    # Get image filename
+    start = photo_elem.find("src=\"images/") + len("src=\"images/")
+    end = photo_elem.find("\"", start)
+    filename = photo_elem[start:end]
+
+    # Remove order number in filename
+    segments = filename.split("_") # countryCode, cityName, orderNum, extraInfo.extension
+    segments.pop(2)
+    filename = "_".join(segments)
+
+    # Get caption
+    start = photo_elem.find("<div class=\"photo-caption\">") + len("<div class=\"photo-caption\">")
+    end = photo_elem.find("</div>", start)
+    caption = photo_elem[start:end]
+
+    # Add to cache
+    caption_cache[filename] = caption
+
+
+# Add images into the photo container
 cities_table_html = "<tbody>\n\t\t\t\t\t\t"
 photos_html = "<div id=\"photos-container\">\n\t\t\t"
+
 current_country = None
 current_city = None
+
 for filepath in sorted(Path("./images").glob("*")):
     if not filepath.is_file():
         continue
@@ -135,12 +160,18 @@ for filepath in sorted(Path("./images").glob("*")):
     city_entry = f"<tr class=\"city-row {country_code}-city\"><td><span class=\"city-entry\" data-photos=\"{country_code}-{raw_city_name}\">{formatted_city_name}</span></td></tr>\n\t\t\t\t\t\t"
     if city_entry.strip() not in cities_table_html:
         cities_table_html += city_entry.expandtabs(4)
+
+    # Try to get caption from cache
+    segments = filepath.name.split("_") # countryCode, cityName, orderNum, extraInfo.extension
+    segments.pop(2)
+    filename = "_".join(segments)
+    caption = caption_cache.get(filename) or ""
     
     # Add the image to the country's photo container HTML
     photos_html += \
         f"""    <div class=\"photo-wrapper\">
                     <img class=\"photo\" src=\"{filepath}\">
-                    <div class=\"photo-caption\"></div>
+                    <div class=\"photo-caption\">{caption}</div>
                 </div>
             """
 

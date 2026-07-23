@@ -58,11 +58,11 @@ for filepath in sorted(Path("./images").glob(f"{country_code}_{city_name}*"), re
 
 target_path = Path(f"./images/target.{target_segments[-1]}")
 target_path.rename(f"./images/{country_code}_{city_name}_{target_num}{f'_{target_segments[3]}' if len(target_segments) > 4 else ''}.{target_segments[-1]}")
-print(f"Changing file '{target_path.name}' to '{country_code}_{city_name}_{target_num}{f'_{target_segments[3]}' if len(target_segments) > 4 else ''}.{target_segments[-1]}'")
+# print(f"Changing file '{target_path.name}' to '{country_code}_{city_name}_{target_num}{f'_{target_segments[3]}' if len(target_segments) > 4 else ''}.{target_segments[-1]}'")
 
 # Call the build script
-# result = subprocess.run(
-#     [sys.executable, "./scripts/build_from_csv.py"], 
-#     capture_output=True, 
-#     text=True
-# )
+result = subprocess.run(
+    ["python3", "./scripts/build_from_csv.py"], 
+    capture_output=True, 
+    text=True
+)
