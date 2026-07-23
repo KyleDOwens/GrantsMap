@@ -1,11 +1,8 @@
 const countries = document.querySelectorAll('.country');
 const svg = document.getElementById("map-svg");
-const infoBox = document.getElementById("primary-info-box");
-const secondaryInfoBox = document.getElementById("secondary-info-box");
 
 let zoomedGroup = null;
 let displayedCountry = null;
-let secondaryInfoTimer = null;
 
 let visitedColor = "#3FAA40";
 let visitedHoverColor = "#3d8c40";
@@ -300,33 +297,33 @@ function unhighlightCountry(country) {
 }
 
 function hideDisplayedPhotos(countryCode) {
-    if (displayedCountry != null && document.getElementById(countryCode + "-photos") != null) {
-        document.getElementById(displayedCountry + "-photos").classList.add("hidden");
-    }
+    document.querySelector(".country-photos:not(.hidden)")?.classList.add("hidden");
     displayedCountry = null;
 }
 
 function displayPhotos(countryCode) {
-    if (countryCode != null && document.getElementById(countryCode + "-photos") != null) {
-        infoBox.textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
+    hideDisplayedPhotos(countryCode);
+    document.getElementById("primary-info-box").textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
+
+    let isVisited = document.getElementById(`${countryCode}`).classList.contains("visited");
+    let hasPhotos = (document.getElementById(countryCode + "-photos") != null);
+    
+    if (isVisited && hasPhotos) {
+        document.getElementById("secondary-info-box").style.display = "none";
+        document.getElementById("cities-container").style.display = "block";
         document.getElementById(countryCode + "-photos").classList.remove("hidden");
         displayedCountry = countryCode;
     }
-}
-
-function clearSecondaryInfoTimer() {
-    if (secondaryInfoTimer) {
-        clearTimeout(secondaryInfoTimer);
-        secondaryInfoBox.style.display = "none";
+    else {
+        document.getElementById("secondary-info-box").style.display = "block";
+        document.getElementById("cities-container").style.display = "none";
+        if (isVisited) {
+            document.getElementById("secondary-info-box").innerHTML = `No Photos :(<br>Grant has not uploaded photos for ${getCountryPrintName(countryCode)}`;
+        }
+        else {
+            document.getElementById("secondary-info-box").innerHTML = `No Photos :(<br>Grant has not been to ${getCountryPrintName(countryCode)}`;
+        }
     }
-}
-
-function resetSecondaryInfoTimer() {
-    clearSecondaryInfoTimer();
-    secondaryInfoBox.style.display = "block";
-    secondaryInfoTimer = setTimeout(() => {
-        secondaryInfoBox.style.display = "none";
-    }, 5000);
 }
 
 function removeHitboxPointer() {
@@ -348,8 +345,8 @@ function setFlag(countryCode) {
 }
 
 function hideAllCities() {
-    document.querySelectorAll(".city-entry").forEach(cityEntry => {
-        cityEntry.style.display = "none";
+    document.querySelectorAll(".city-row").forEach(cityRow => {
+        cityRow.style.display = "none";
     });
 }
 
@@ -470,30 +467,16 @@ function handleClickedCountry(country) {
     }
     else {
         let countryCode = country.getAttribute('id');
-        if (country.classList.contains("visited") && document.getElementById(countryCode + "-photos") != null) {
-            hideDisplayedPhotos(countryCode);
-            setFlag(countryCode);
-            displayCountryCities(countryCode);
-            displayPhotos(countryCode);
-            clearSecondaryInfoTimer();
-        }
-        else if (country.classList.contains("visited")) {
-            secondaryInfoBox.style.display = "block";
-            secondaryInfoBox.textContent = `Grant has visited ${getCountryPrintName(countryCode)} but hasn't uploaded photos :(`;
-            resetSecondaryInfoTimer();
-        }
-        else {
-            secondaryInfoBox.style.display = "block";
-            secondaryInfoBox.textContent = `No photos! Grant hasn't visited ${getCountryPrintName(countryCode)}`;
-            resetSecondaryInfoTimer();
-        }
+        setFlag(countryCode);
+        displayCountryCities(countryCode);
+        displayPhotos(countryCode);
         return countryCode;
     }
 }
 
 function displayCountryCities(countryCode) {
     hideAllCities();
-    document.querySelectorAll(`.${countryCode.toLowerCase()}-city`).forEach(cityEntry => {
+    document.querySelectorAll(`.${countryCode}-city`).forEach(cityEntry => {
         cityEntry.style.display = "table-row";
     });
 }
@@ -528,7 +511,7 @@ countries.forEach(country => {
 });
 
 /**
- * Handles logic for clicking on an entry in the table.
+ * Handles logic for clicking on an entry in the country table.
  * Will zoom into relevant group AND select the country.
  */
 document.querySelectorAll(".country-entry").forEach(countryEntry => {
@@ -536,6 +519,17 @@ document.querySelectorAll(".country-entry").forEach(countryEntry => {
         if (handleClickedCountry(document.getElementById(countryEntry.dataset.code)) == zoomedGroup) {
             handleClickedCountry(document.getElementById(countryEntry.dataset.code));
         }
+    })
+});
+
+/**
+ * Handles logic for clicking on an entry in the city table.
+ * Will jump to the photos for that specific city
+ */
+document.querySelectorAll(".city-entry").forEach(cityEntry => {
+    console.log(cityEntry.dataset)
+    cityEntry.addEventListener("click", () => {
+        document.getElementById(cityEntry.dataset.photos).scrollIntoView();
     })
 });
 

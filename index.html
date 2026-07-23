@@ -351,295 +351,49 @@
     <div class="horizontal-group" id="photos-group">
         <div id="info-container">
             <h2 id="primary-info-box">Click a country to see photos...</h2>
-            <h3 id="secondary-info-box"></h3>
 
             <span id="flag-container"></span>
             
+            <h3 id="secondary-info-box"></h3>
+
             <div id="cities-container">
                 <table id="cities-table">
                     <thead>
                         <th>CITIES VISITED</th>
                     </thead>
                     <tbody>
-						<tr class="city-entry us-city"><td>Boston</td></tr>
-                        <tr class="city-entry us-city"><td>San Antonio</td></tr>
-                        <tr class="city-entry ca-city"><td>Toronto</td></tr>
+						<tr class="city-row CA-city"><td><span class="city-entry" data-photos="CA-toronto">Toronto</span></td></tr>
+                        <tr class="city-row US-city"><td><span class="city-entry" data-photos="US-boston">Boston</span></td></tr>
+                        <tr class="city-row US-city"><td><span class="city-entry" data-photos="US-san antonio">San Antonio</span></td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
         <div id="photos-container">
-            <!-- Albania -->
-            <div id="AL-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Armenia -->
-            <div id="AM-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Austria -->
-            <div id="AT-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Aruba -->
-            <div id="AW-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Azerbaijan -->
-            <div id="AZ-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Bosnia_and_herzegovina -->
-            <div id="BA-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Barbados -->
-            <div id="BB-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Bahamas -->
-            <div id="BS-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Belize -->
-            <div id="BZ-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Canada -->
-            <div id="CA-photos" class="country-photos hidden">
-                <div class="photo-wrapper">
+			<div id="CA-photos" class="country-photos hidden">
+				<div id="CA-toronto" class="city-divider">Toronto</div>
+			    <div class="photo-wrapper">
                     <img class="photo" src="images/ca_toronto_1_example4.jpg">
-                    <div class="photo-caption">CA photo description</div>
+                    <div class="photo-caption">images/ca_toronto_1_example4.jpg</div>
                 </div>
             </div>
-
-            <!-- Switzerland -->
-            <div id="CH-photos" class="country-photos hidden">
-            </div>
-
-            <!-- China -->
-            <div id="CN-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Curaçao -->
-            <div id="CW-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Germany -->
-            <div id="DE-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Denmark -->
-            <div id="DK-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Dominican_republic -->
-            <div id="DO-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Estonia -->
-            <div id="EE-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Egypt -->
-            <div id="EG-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Spain -->
-            <div id="ES-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Finland -->
-            <div id="FI-photos" class="country-photos hidden">
-            </div>
-
-            <!-- France -->
-            <div id="FR-photos" class="country-photos hidden">
-            </div>
-
-            <!-- United_kingdom -->
-            <div id="GB-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Georgia -->
-            <div id="GE-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Greece -->
-            <div id="GR-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Hong_kong -->
-            <div id="HK-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Honduras -->
-            <div id="HN-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Croatia -->
-            <div id="HR-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Hungary -->
-            <div id="HU-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Indonesia -->
-            <div id="ID-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Ireland -->
-            <div id="IE-photos" class="country-photos hidden">
-            </div>
-
-            <!-- India -->
-            <div id="IN-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Italy -->
-            <div id="IT-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Japan -->
-            <div id="JP-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Kyrgyzstan -->
-            <div id="KG-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Cambodia -->
-            <div id="KH-photos" class="country-photos hidden">
-            </div>
-
-            <!-- South_korea -->
-            <div id="KR-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Kazakhstan -->
-            <div id="KZ-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Lithuania -->
-            <div id="LT-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Latvia -->
-            <div id="LV-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Montenegro -->
-            <div id="ME-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Malta -->
-            <div id="MT-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Mexico -->
-            <div id="MX-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Malaysia -->
-            <div id="MY-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Netherlands -->
-            <div id="NL-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Peru -->
-            <div id="PE-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Philippines -->
-            <div id="PH-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Poland -->
-            <div id="PL-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Portugal -->
-            <div id="PT-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Russia -->
-            <div id="RU-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Sweden -->
-            <div id="SE-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Singapore -->
-            <div id="SG-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Slovakia -->
-            <div id="SK-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Turks_and_caicos_islands -->
-            <div id="TC-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Thailand -->
-            <div id="TH-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Tajikistan -->
-            <div id="TJ-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Turkey -->
-            <div id="TR-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Taiwan -->
-            <div id="TW-photos" class="country-photos hidden">
-            </div>
-
-            <!-- United_states -->
-            <div id="US-photos" class="country-photos hidden">
-                <div class="photo-wrapper">
+			<div id="US-photos" class="country-photos hidden">
+				<div id="US-boston" class="city-divider">Boston</div>
+			    <div class="photo-wrapper">
+                    <img class="photo" src="images/us_boston_1_example3.jpg">
+                    <div class="photo-caption">images/us_boston_1_example3.jpg</div>
+                </div>
+            	<div id="US-san antonio" class="city-divider">San Antonio</div>
+			    <div class="photo-wrapper">
                     <img class="photo" src="images/us_san-antonio_1_example1.jpg">
-                    <div class="photo-caption">US photo description</div>
+                    <div class="photo-caption">images/us_san-antonio_1_example1.jpg</div>
                 </div>
                 <div class="photo-wrapper">
                     <img class="photo" src="images/us_san-antonio_2_example2.jpg">
-                    <div class="photo-caption">US photo description</div>
+                    <div class="photo-caption">images/us_san-antonio_2_example2.jpg</div>
                 </div>
-                <div class="photo-wrapper">
-                    <img class="photo" src="images/us_boston_1_example3.jpg">
-                    <div class="photo-caption">US photo description</div>
-                </div>
-            </div>
-
-            <!-- Uzbekistan -->
-            <div id="UZ-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Vatican_city -->
-            <div id="VA-photos" class="country-photos hidden">
-            </div>
-
-            <!-- Vietnam -->
-            <div id="VN-photos" class="country-photos hidden">
-            </div>
-
-            <!-- COUNTRY_PHOTOS_REPLACEME -->
-            
-        </div>
-    </div>
-    
-    
-
-    
-
-
+            </div> <!-- END OF PHOTOS -->
     
 
     <script src="script.js" type="module"></script>
