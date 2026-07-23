@@ -104,7 +104,7 @@ for filepath in sorted(Path("./images").glob("*")):
 
     # Get info about image
     try:
-        metadata = filepath.name.split("_")
+        metadata = filepath.name.replace(".", "_").split("_")
         country_code = metadata[0].upper()
         raw_city_name = metadata[1]
         formatted_city_name = metadata[1].replace("-", " ").title()

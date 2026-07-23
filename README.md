@@ -20,14 +20,14 @@ Things that can be changed in the CSV:
 * The year you last visited the country
 
 Once you have made your changes *and saved the file*, make your changes take effect by:
-1. Opening the terminal by pressing `Ctrl + ~` on your keyboard
+1. Opening the terminal by pressing `'Ctrl' + '~'` on your keyboard
 2. Typing `python3 scripts/build_from_csv.py` and hitting enter
 
 
 ### Uploading Photos
 In order for my script to work, photos must be named following a particular format.
-Photos should be named "<CountryCode>_<CityName>_<OrderingNumber>_<ExtraInfo>".
-Each section of the filename should be separate by an underscore ("_").
+Photos should be named `<CountryCode>_<CityName>_<OrderingNumber>_<ExtraInfo>`.
+Each section of the filename should be separate by an underscore (_).
 Photos can be any image format (jpg, jpeg, png, gif).
 
 Photos are organized per country, per city.
@@ -40,7 +40,7 @@ For example, the United States' country code is "US".
 You can find all country codes in `countries.csv`.
 
 * The `CityName` is the name of the city (as you want it displayed).
-If the city name has a space in it, replace the space with a hyphen ("-").
+If the city name has a space in it, replace the space with a hyphen (-).
 
 * The `OrderingNumber` determines what order the photo is displayed for that specific city.
 The photo with the *smallest* number will be displayed first.
@@ -58,7 +58,7 @@ Examples:
 
 
 # Design Notes
-## Repository Structure
+### Repository Structure
 The repository structure is pretty self-explanatory, but here is a quick rundown:
 * `flags/` images of the flags for each country
 * `fonts/` custom fonts used
@@ -67,7 +67,7 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * `scripts/` python scripts which are used by me to help during development
 * All HTML, CSS, and JavaScript source files are located in the home directory
 
-## Resources
+### Resources
 * https://www.iban.com/country-codes
 * https://simplemaps.com/
 * https://flagicons.lipis.dev/
@@ -102,6 +102,7 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 #### Design
 * [-] Add paneling around each letter in the table to mimic departure display
 * [-] Make each photo look like a polaroid?
+* [-] Info box look like passport page?
 
 #### Website Code
 * [-] Stop SVG canvas from changing size when zooming
@@ -109,7 +110,8 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [-] Make display on mobile (single column for everything)
 
 #### Scripts
-* [-] Add script to allow grant to edit the caption for a photo
+* [+] Add script to allow grant to edit the caption for a photo
     * Something like `edit_caption <country> <city> <photoNumber | photoName> <caption>`
-* [-] Add script to easily change image orders by changing the OrderNumber in all filenames
+* [+] Add script to easily change image orders by changing the OrderNumber in all filenames
     * Something like `change_order <currentFilename> <newFilename>`
+* [-] Add cache to remember captions across build process (ignoring the orderNumber)
