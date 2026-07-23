@@ -106,10 +106,11 @@ for filepath in sorted(Path("./images").glob("*")):
     try:
         metadata = filepath.name.split("_")
         country_code = metadata[0].upper()
-        city_name = metadata[1].replace("-", " ")
+        raw_city_name = metadata[1]
+        formatted_city_name = metadata[1].replace("-", " ").title()
         order = int(metadata[2])
     except Exception as e:
-        print(f"ERROR: filename \"{filepath.name}\" does not follow the format <CountryCode>_<CityName>_<OrderNumber>_<Description>.jpg! Make sure to use hyphens (-) instead of spaces in the city name.\n\tExample filenames: \"us_boston_1_example.jpg\" or \"us_san-antonio_4_riverwalk.jpg\")")
+        print(f"ERROR: filename \"{filepath.name}\" does not follow the format <CountryCode>_<CityName>_<OrderingNumber>_<ExtraInfo>! Make sure to use hyphens (-) instead of spaces in the city name.\n\tExample filenames: \"us_boston_1_example.jpg\" or \"us_san-antonio_4_riverwalk.jpg\")")
         continue
 
     # Determine if we have moved on to a new country
@@ -124,14 +125,14 @@ for filepath in sorted(Path("./images").glob("*")):
         current_country = country_code
     
     # Determine if we have moved on to a new city
-    is_new_city = city_name != current_city
+    is_new_city = raw_city_name != current_city
     if is_new_city:
         # Add divider for each city
-        photos_html += f"\t<div id=\"{country_code}-{city_name}\" class=\"city-divider\">{city_name.title()}</div>\n\t\t\t"
-        current_city = city_name 
+        photos_html += f"\t<div id=\"{country_code}-{raw_city_name}\" class=\"city-divider\">{formatted_city_name}</div>\n\t\t\t"
+        current_city = raw_city_name 
 
     # Add the city to the table
-    city_entry = f"<tr class=\"city-row {country_code}-city\"><td><span class=\"city-entry\" data-photos=\"{country_code}-{city_name}\">{city_name.title()}</span></td></tr>\n\t\t\t\t\t\t"
+    city_entry = f"<tr class=\"city-row {country_code}-city\"><td><span class=\"city-entry\" data-photos=\"{country_code}-{raw_city_name}\">{formatted_city_name}</span></td></tr>\n\t\t\t\t\t\t"
     if city_entry.strip() not in cities_table_html:
         cities_table_html += city_entry.expandtabs(4)
     
@@ -139,9 +140,13 @@ for filepath in sorted(Path("./images").glob("*")):
     photos_html += \
         f"""    <div class=\"photo-wrapper\">
                     <img class=\"photo\" src=\"{filepath}\">
-                    <div class=\"photo-caption\">{filepath}</div>
+                    <div class=\"photo-caption\"></div>
                 </div>
             """
+
+# Close last photos container
+photos_html += "</div>\n\t\t"
+
 
 
 # /*-- ================================================ --->
