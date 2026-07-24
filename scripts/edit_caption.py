@@ -5,12 +5,13 @@ import os
 if (os.getcwd().split("/")[-1].lower() != "grants_map" and os.getcwd().split("/")[-1].lower() != "grantsmap"):
         exit("ERROR: This script must be run from the project root directory")
 
-if len(sys.argv) != 5:
+if len(sys.argv) < 5:
     print("This script takes 5 arguments! Usage:")
     print("python3 edit_caption.py <CountryCode> <CityName> <OrderNumber> <Caption>") 
     exit()
 
-country_code, city_name, order_num, caption = sys.argv[1:]
+country_code, city_name, order_num = sys.argv[1:4]
+caption = " ".join(sys.argv[4:])
 
 # Read in HTML file as string
 html_string = None
