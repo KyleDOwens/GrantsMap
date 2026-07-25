@@ -11,9 +11,6 @@ from pathlib import Path
 # This is intended to do EVERYTHING, that way Grant doesn't have to every look at any code, and can just make his changes in the CSV
 
 # Get command line arguments
-if (os.getcwd().split("/")[-1].lower() != "grants_map" and os.getcwd().split("/")[-1].lower() != "grantsmap"):
-        exit("ERROR: This script must be run from the project root directory")
-
 if len(sys.argv) > 1:
     print("This script takes no arguments! Usage:")
     print("python3 build_from_csv.py") 
