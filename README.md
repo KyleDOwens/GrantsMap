@@ -23,9 +23,9 @@ Things that can be changed in the CSV:
 * The name of countries
 * The year you last visited the country
 
-Once you have made your changes *and saved the file*, make your changes take effect by:
-1. Opening the terminal by pressing `'Ctrl' + '~'` on your keyboard
-2. Typing `python3 scripts/build_from_csv.py` and hitting enter
+Once you have made your changes *and saved the file*, make your changes take effect by running the build script:
+1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
+2. Type `python3 scripts/build_from_csv.py` and hit enter
 
 
 ## Uploading Photos
@@ -33,6 +33,7 @@ In order for my script to work, photos must be named following a particular form
 Photos should be named `<CountryCode>_<CityName>_<OrderingNumber>_<ExtraInfo>`.
 Each section of the filename should be separate by an underscore (_).
 Photos can be any image format (jpg, jpeg, png, gif).
+After uploading your photos, you will need to run the build script (as described above) to make them appear on the website.
 
 * The `CountryCode` is the ISO two-letter country code for that country.
 For example, the United States' country code is "US".
@@ -192,10 +193,11 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [+] Why script doesnt work for grant (i didnt push my changes, oopsie)
 * [+] Added postcard page (styles don't match at all anymore, may need to redo)
 * [+] Add flag to country info when clicked
-* [+] Add box to skip to certain cities
+* [+] Make clicking on country name in table select the country
 * [+] Build script to automatically add HTML for all photos
 * [+] Build script to put city subheader to separate photos
 * [+] Build script to put photos in correct order (should be automatic since in alpha order)
+* [+] Add box to skip to certain cities
 * [+] Make clicking on city entries go to city subheader
 * [+] Hide city table until a country is clicked on
 * [+] Add script to allow grant to edit the caption for a photo
@@ -208,10 +210,8 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [+] Make each photo look like a polaroid?
 * [+] Allocate some default space for the photo container
 * [+] Make the map back button only be visible when zoomed into a group
+* [+] Make display on mobile (single column for everything)
 
 ### TODO:
 #### Design
 * [-] Info box look like passport page?
-
-#### Website Code
-* [-] Make display on mobile (single column for everything)

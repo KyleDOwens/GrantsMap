@@ -4,10 +4,15 @@ const svg = document.getElementById("map-svg");
 let zoomedGroup = null;
 let displayedCountry = null;
 
-let visitedColor = "#3FAA40";
-let visitedHoverColor = "#3d8c40";
-let unvisitedColor = "#A63E3F";
-let unvisitedHoverColor = "#91383a";
+// let visitedColor = "#3FAA40";
+// let visitedHoverColor = "#3d8c40";
+// let unvisitedColor = "#A63E3F";
+// let unvisitedHoverColor = "#91383a";
+
+let visitedColor = "#32d635";
+let visitedHoverColor = "#3FAA40";
+let unvisitedColor = "#d4393c";
+let unvisitedHoverColor = "#A63E3F";
 
 
 const codeMappings = {
@@ -552,7 +557,7 @@ window.addEventListener("mousemove", (e) => {
 });
 
 document.querySelectorAll(".photo-wrapper").forEach(photoWrapper => {
-    photoWrapper.style.transform = `rotate(${getRandomInt(-1, 1)}deg)`;
-    photoWrapper.style.paddingLeft = `${getRandomInt(-2, 2)}px`;
-    photoWrapper.style.paddingRight = `${getRandomInt(-2, 2)}px`;
+    // photoWrapper.style.transform = `rotate(${getRandomInt(-1, 1)}deg)`;
+    // photoWrapper.style.paddingLeft = `${getRandomInt(-2, 2)}px`;
+    // photoWrapper.style.paddingRight = `${getRandomInt(-2, 2)}px`;
 });

@@ -75,6 +75,7 @@ marquee {
 
     border: outset;
     background-color: black;
+    /* background-color: #0226B2; */
 }
 
 
@@ -136,6 +137,7 @@ marquee {
 
 .country {
     fill: #A63E3F;
+    fill: #d4393c;
     fill-opacity: "1";
     stroke: black;
     stroke-width: 1;
@@ -162,6 +164,7 @@ marquee {
 
 .visited {
     fill: #3FAA40;
+    fill: #32d635;
 }
 .visited:hover {
     fill: #3d8c40;
@@ -181,6 +184,7 @@ marquee {
 
 #table-container {
     overflow-y: scroll;
+    min-height: 250px;
 
     display: flex;
     justify-content: center;
@@ -214,6 +218,7 @@ tr {
 
 .country-entry {
     cursor: pointer;
+    /* text-decoration: underline; */
 }
 
 
@@ -268,11 +273,12 @@ tr {
 }
 
 #cities-table th {
-    background-color: #161616;
+    background-color: #0f0f0f;
 }
 
 .city-entry {
     cursor: pointer;
+    text-decoration: underline;
 }
 
 
@@ -391,4 +397,43 @@ tr {
 ::-webkit-scrollbar-button:horizontal:start:increment,
 ::-webkit-scrollbar-button:horizontal:end:decrement {
   display: none;
+}
+
+
+
+@media(max-width: 1250px) {
+    #countries-group,
+    #photos-group {
+        padding: 0 2%;
+    }
+}
+
+@media(max-width: 950px) {
+    .horizontal-group {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    #countries-group {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        height: auto; 
+        min-height: max-content;
+    }
+
+    #table-container {
+        max-height: 300px;
+    }
+
+    #map-container,
+    #table-container,
+    #info-container,
+    #photos-container {
+        width: 100%;
+    }
+
+    .country-photos {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
 }
