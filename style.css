@@ -21,11 +21,15 @@
 html {
     display: table;
     margin: auto;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
 body {
     display: table-cell;
     max-width: 1200px;
+    overflow-x: hidden;
+    touch-action: pan-y;
 }
 
 
@@ -64,10 +68,21 @@ body {
         #DB7802 60% 75%,
         #AF4C00 90% 100%
     );
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#titlebar img {
+    height: 57px;
 }
 
 marquee {
     width: 110%;
+    
+
     margin-bottom: 10px;
     margin-left: -1%;
     margin-right: -1%;
@@ -111,9 +126,10 @@ marquee {
 
     background-color: transparent;
     border: none;
+    padding: 5px 8px;
 
     font-weight: bold;
-    padding: 5px 8px;
+    cursor: pointer;
 }
 
 #cursor-text {
