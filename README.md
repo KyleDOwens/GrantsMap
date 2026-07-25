@@ -25,7 +25,7 @@ Things that can be changed in the CSV:
 
 Once you have made your changes *and saved the file*, make your changes take effect by running the build script:
 1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
-2. Type `python3 scripts/build_from_csv.py` and hit enter
+2. Type `python ./scripts/build_from_csv.py` and hit enter
 
 
 ## Uploading Photos
@@ -69,14 +69,14 @@ Note that this will only work for jpg/jpeg photos (not png or gif)
 
 To do this:
 1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
-2. Type `python3 scripts/compress_jpg` and hit enter
+2. Type `python ./scripts/compress_jpg` and hit enter
 
 
 ## Changing a Photo Caption
 By default, all photos will be uploaded without a caption.
 To add a caption to them, you will need to use one of my scripts.
 1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
-2. Type `python3 scripts/edit_caption.py <CountryCode> <CityName> <OrderingNumber> <Caption>` (and fill in all the fields with the correct info) and hit enter
+2. Type `python ./scripts/edit_caption.py <CountryCode> <CityName> <OrderingNumber> <Caption>` (and fill in all the fields with the correct info) and hit enter
 
 For each field in the script, fill them in following the same instructions as the filename.
 So:
@@ -85,7 +85,7 @@ So:
 * `OrderingNumber` is the current ordering number of the photo.
 * `Caption` is the full caption that you want to include, surrounded by quotation marks. It can be as long as you want, and *can* include spaces.
 
-For example, running `python3 ./scripts/edit_caption.py us san-antonio 2 "this is my example caption"` will set the caption to "this is my example caption" for the 2nd photo for San Antonio when the United States is selected.
+For example, running `python ./scripts/edit_caption.py us san-antonio 2 "this is my example caption"` will set the caption to "this is my example caption" for the 2nd photo for San Antonio when the United States is selected.
 
 
 ## Changing the Order of Photos
@@ -98,7 +98,7 @@ But, if you want to change the order of photos after you have uploaded them, the
 
 To use the script,
 1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
-2. Type `python3 scripts/change_photo_order.py <CountryCode> <CityName> <OldOrderingNumber> <NewOrderingNumber>` (and fill in all the fields with the correct info) and hit enter
+2. Type `python ./scripts/change_photo_order.py <CountryCode> <CityName> <OldOrderingNumber> <NewOrderingNumber>` (and fill in all the fields with the correct info) and hit enter
 
 For each field in the script, fill them in following the same instructions as the filename.
 So:
@@ -107,7 +107,7 @@ So:
 * `OldOrderingNumber` is the *current* ordering number of the photo you want to move.
 * `NewOrderingNumber` is the *new* ordering number you want to move the current photo to.
 
-For example, running `python3 ./scripts/change_photo_order.py us san-antonio 4 1` will move the photo current displayed 4th, to instead be displayed 1st.
+For example, running `python ./scripts/change_photo_order.py us san-antonio 4 1` will move the photo current displayed 4th, to instead be displayed 1st.
 
 
 ## How to Upload Your Website Changes
@@ -179,15 +179,28 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 
  --------------------------------------------------------------
 ### QUESTIONS
-* [-] In country table, add column for the order in which each country was visited?
-* [-] In country table, color code the countries in some way (green, yellow, red)? number of days? recency of visit? enjoyment of travel there? recommendation to others?
+* [-] Make destination column smaller in table to give room for dates, allow for multiple dates to be in the column
+
+
 * [-] Does grant want a "default country" to display pictures of?
+    * no
 * [-] Does grant also want to display "fun facts" when a country is clicked on? Like the capital, population, language, etc.
-* [-] Does grant want the country code next the country name when selecting a country?
+    * yes, small box that has capital, population, years v
+
+
 * [-] Get Grant a GitHub account set up so I can eventually transfer ownership to him (and give myself edit permissions) (maybe make it so we both know password so I can log in if needed)
+
 * [-] Want place to link socials?
+    * For now no, maybe later though
+
 * [-] Grant to give me his previous flight info to put in marquee
-* [-] Center tables?
+    * Grant to send me this later
+
+
+
+* [-] Counter for how many countries - 62
+* [-] Counter for U.N. countries - 56
+
 
 ### DONE:
 * [+] Why script doesnt work for grant (i didnt push my changes, oopsie)

@@ -4,8 +4,9 @@ import sys
 import os
 
 # Get command line arguments
-if (os.getcwd().split("/")[-1].lower() != "grants_map" and os.getcwd().split("/")[-1].lower() != "grantsmap"):
-        exit("ERROR: This script must be run from the project root directory")
+cwd = os.getcwd().replace("\\", "/")
+if (cwd.split("/")[-1].lower() != "grants_map" and cwd.split("/")[-1].lower() != "grantsmap"):
+    exit("ERROR: This script must be run from the project root directory")
 
 if len(sys.argv) != 5:
     print("This script takes 5 arguments! Usage:")

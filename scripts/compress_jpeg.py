@@ -5,8 +5,9 @@ import os
 
 
 def compressDir(target_dir, quality):
-    if (os.getcwd().split("/")[-1] != "grants_map"):
-        exit("ERROR: This script must be run from the project directory")
+    cwd = os.getcwd().replace("\\", "/")
+    if (cwd.split("/")[-1].lower() != "grants_map" and cwd.split("/")[-1].lower() != "grantsmap"):
+        exit("ERROR: This script must be run from the project root directory")
 
     for filename in os.listdir(target_dir):
         if not filename.lower().endswith(('.jpg', '.jpeg')):
