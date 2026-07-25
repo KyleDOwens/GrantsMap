@@ -437,6 +437,7 @@ function zoomIntoGroup(group) {
     let heightPadding = paddings[1];
     zoomedGroup = group;
     smoothViewBoxTransition(bbox.x - widthPadding, bbox.y - heightPadding, bbox.width + (widthPadding * 2), bbox.height + (heightPadding * 2), 750);
+    document.getElementById("overlay-btn").classList.remove("hidden");
 
     // Unhighlight all countries in the group once we zoom in to switch to individual country highlighting
     unhighlightGroup(group);
@@ -539,6 +540,7 @@ document.querySelectorAll(".city-entry").forEach(cityEntry => {
 
 document.getElementById("overlay-btn").addEventListener("click", () => {
     zoomedGroup = null;
+    document.getElementById("overlay-btn").classList.add("hidden");
     addHitboxPointer();
     smoothViewBoxTransition(0, 0, 700, 300, 750);
 });

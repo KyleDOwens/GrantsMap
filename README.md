@@ -206,7 +206,8 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [+] Steal kyle's world scrollbars
 * [/] Add paneling around each letter in the table to mimic departure display
 * [+] Make each photo look like a polaroid?
-* [=] Allocate some default space for the photo container
+* [+] Allocate some default space for the photo container
+* [+] Make the map back button only be visible when zoomed into a group
 
 ### TODO:
 #### Design
@@ -214,4 +215,3 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 
 #### Website Code
 * [-] Make display on mobile (single column for everything)
-* [-] Make the map back button only be visible when zoomed into a group
