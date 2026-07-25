@@ -303,7 +303,7 @@ function hideDisplayedPhotos(countryCode) {
 
 function displayPhotos(countryCode) {
     hideDisplayedPhotos(countryCode);
-    document.getElementById("primary-info-box").textContent = `Photos from ${getCountryPrintName(countryCode)} (${countryCode})`;
+    document.getElementById("primary-info-box").textContent = `Photos from ${getCountryPrintName(countryCode)}`;
 
     let isVisited = document.getElementById(`${countryCode}`).classList.contains("visited");
     let hasPhotos = (document.getElementById(countryCode + "-photos") != null);
@@ -348,6 +348,10 @@ function hideAllCities() {
     document.querySelectorAll(".city-row").forEach(cityRow => {
         cityRow.style.display = "none";
     });
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -543,4 +547,10 @@ window.addEventListener("mousemove", (e) => {
     let cursorText = document.getElementById("cursor-text");
     cursorText.style.left = e.clientX + 16 + "px";
     cursorText.style.top = e.clientY + 16 + "px";
+});
+
+document.querySelectorAll(".photo-wrapper").forEach(photoWrapper => {
+    photoWrapper.style.transform = `rotate(${getRandomInt(-1, 1)}deg)`;
+    photoWrapper.style.paddingLeft = `${getRandomInt(-2, 2)}px`;
+    photoWrapper.style.paddingRight = `${getRandomInt(-2, 2)}px`;
 });

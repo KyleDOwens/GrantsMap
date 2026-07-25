@@ -13,7 +13,7 @@ There are additional helper scripts to change photo captions and alter the order
 I can't account for every possible edge case, so if things go wrong and my notes don't mention how to fix it, text/call me.
 
 
-### Editing the CSV
+## Editing the CSV
 The CSV file `countries.csv` contains information about each country.
 All the info in the CSV is reflected in the website's content.
 
@@ -28,16 +28,11 @@ Once you have made your changes *and saved the file*, make your changes take eff
 2. Typing `python3 scripts/build_from_csv.py` and hitting enter
 
 
-### Uploading Photos
+## Uploading Photos
 In order for my script to work, photos must be named following a particular format.
 Photos should be named `<CountryCode>_<CityName>_<OrderingNumber>_<ExtraInfo>`.
 Each section of the filename should be separate by an underscore (_).
 Photos can be any image format (jpg, jpeg, png, gif).
-
-Photos are organized per country, per city.
-Only one countries photos will be displayed at a time.
-All the photos for that country will be grouped per city.
-There is a clear separation between photos for different cities.
 
 * The `CountryCode` is the ISO two-letter country code for that country.
 For example, the United States' country code is "US".
@@ -56,12 +51,27 @@ Cities will always be displayed in alphabetical order.
 It is not used by me, so you can put whatever you want there.
 If you do not want to include any extra info, you can just end the filename after the OrderingNumber.
 
+Photos are organized per country, per city.
+Only one countries photos will be displayed at a time.
+All the photos for that country will be grouped per city.
+There is a clear separation between photos for different cities.
+
 Examples:
 * If you want to upload a photo for Qarshi in Uzbekistan that you want displayed 3rd, you should name the file `uz_qarshi_3.jpg`
 * If you want to upload a photo of the alamo for San Antonio in the United States that you want displayed 1st, you should name the file `us_san-antonio_1_alamo.jpg`.
 
+## Compressing Photos
+I would recommend compressing all your photos after you upload them.
+This reduces the size of the website (if you upload a lot of high quality photos, it will take a long time to load).
+It also plays into the early internet and low quality airport display aesthetic.
+Note that this will only work for jpg/jpeg photos (not png or gif)
 
-### Changing a Photo Caption
+To do this:
+1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
+2. Type `python3 scripts/compress_jpg` and hit enter
+
+
+## Changing a Photo Caption
 By default, all photos will be uploaded without a caption.
 To add a caption to them, you will need to use one of my scripts.
 1. Open the terminal by pressing `'Ctrl' + '~'` on your keyboard
@@ -77,7 +87,7 @@ So:
 For example, running `python3 ./scripts/edit_caption.py us san-antonio 2 "this is my example caption"` will set the caption to "this is my example caption" for the 2nd photo for San Antonio when the United States is selected.
 
 
-### Changing the Order of Photos
+## Changing the Order of Photos
 As described in the section about uploading photos, all photos will be displayed in order of the `OrderingNumber` in their filename.
 Ideally, you won't be picky about the order and will just add photos one after the other.
 
@@ -172,7 +182,11 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [-] In country table, color code the countries in some way (green, yellow, red)? number of days? recency of visit? enjoyment of travel there? recommendation to others?
 * [-] Does grant want a "default country" to display pictures of?
 * [-] Does grant also want to display "fun facts" when a country is clicked on? Like the capital, population, language, etc.
+* [-] Does grant want the country code next the country name when selecting a country?
 * [-] Get Grant a GitHub account set up so I can eventually transfer ownership to him (and give myself edit permissions) (maybe make it so we both know password so I can log in if needed)
+* [-] Want place to link socials?
+* [-] Grant to give me his previous flight info to put in marquee
+* [-] Center tables?
 
 ### DONE:
 * [+] Why script doesnt work for grant (i didnt push my changes, oopsie)
@@ -188,16 +202,16 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * [+] Add script to easily change image orders
 * [+] Add cache to remember captions across build process (ignoring the orderNumber)
 * [+] Write documentation for Grant for the photo scripts
+* [+] Stop SVG canvas from changing size when zooming
+* [+] Steal kyle's world scrollbars
+* [/] Add paneling around each letter in the table to mimic departure display
+* [+] Make each photo look like a polaroid?
+* [=] Allocate some default space for the photo container
 
 ### TODO:
 #### Design
-* [-] Add paneling around each letter in the table to mimic departure display
-* [-] Make each photo look like a polaroid?
 * [-] Info box look like passport page?
-* [-] Steal kyle's world scrollbars
 
 #### Website Code
-* [-] Stop SVG canvas from changing size when zooming
-* [-] Allocate some default space for the photo container
 * [-] Make display on mobile (single column for everything)
 * [-] Make the map back button only be visible when zoomed into a group
